@@ -37,6 +37,7 @@ public class UserFormDto {
 				.userId(userId)
 				.password(password)
 				.userName(userName)
+				.useYn("Y")
 				.build();
 		}
 	}

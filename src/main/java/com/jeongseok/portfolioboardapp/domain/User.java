@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+public class User extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,12 +32,6 @@ public class User {
 
 	@Column(name = "user_name")
 	private String userName;
-
-	@Column(name = "created_at")
-	private String createdAt;
-
-	@Column(name = "updated_at")
-	private String updatedAt;
 
 	@Column(name = "use_yn")
 	private String useYn;
