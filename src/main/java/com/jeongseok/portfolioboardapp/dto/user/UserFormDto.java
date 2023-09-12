@@ -18,8 +18,6 @@ public class UserFormDto {
 	@Builder
 	public static class UserJoinForm {
 
-		private long userIndex;
-
 		@NotBlank(message = "아이디는 빈칸으로 입력될 수 없습니다.")
 		private String userId;
 
