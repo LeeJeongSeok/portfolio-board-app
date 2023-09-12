@@ -25,10 +25,6 @@ public class UserService {
 	public boolean isDuplicate(String userId) {
 		Optional<User> findUser = userRepository.findByUserId(userId);
 
-		if (findUser.isEmpty()) {
-			return false;
-		}
-
-		return findUser.get().getUserId().equals(userId);
+		return findUser.isEmpty();
 	}
 }
