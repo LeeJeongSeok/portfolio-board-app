@@ -4,8 +4,6 @@ import com.jeongseok.portfolioboardapp.dto.user.UserFormDto;
 import com.jeongseok.portfolioboardapp.dto.user.UserFormDto.UserJoinForm;
 import com.jeongseok.portfolioboardapp.service.UserService;
 import jakarta.validation.Valid;
-import java.io.File;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
