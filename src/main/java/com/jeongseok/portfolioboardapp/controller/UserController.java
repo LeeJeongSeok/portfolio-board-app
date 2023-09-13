@@ -1,7 +1,9 @@
 package com.jeongseok.portfolioboardapp.controller;
 
+import com.jeongseok.portfolioboardapp.domain.User;
 import com.jeongseok.portfolioboardapp.dto.user.UserFormDto;
 import com.jeongseok.portfolioboardapp.dto.user.UserFormDto.UserJoinForm;
+import com.jeongseok.portfolioboardapp.dto.user.UserFormDto.UserLoginForm;
 import com.jeongseok.portfolioboardapp.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,12 @@ public class UserController {
 		return "user/joinForm";
 	}
 
+	@GetMapping("/login")
+	public String loginForm(Model model) {
+		model.addAttribute("userLoginForm", new UserLoginForm());
+		return "user/loginForm";
+	}
+
 	@PostMapping("/join")
 	public String join(@Valid @ModelAttribute UserFormDto.UserJoinForm userJoinForm, BindingResult bindingResult) {
 
@@ -40,6 +48,24 @@ public class UserController {
 		userService.join(userJoinForm);
 
 		return "redirect:/join";
+	}
+
+	@PostMapping("/login")
+	public String login(@Valid @ModelAttribute UserFormDto.UserLoginForm userLoginForm, BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			return "user/loginForm";
+		}
+
+		// DB에 해당 유저 조회
+		User loginUser = userService.login(userLoginForm.getUserId(), userLoginForm.getPassword());
+
+		if (loginUser == null) {
+			bindingResult.reject("login Failed",  "아이디 또는 비밀번호가 일치하지 않습니다.");
+			return "user/loginForm";
+		}
+
+		return "redirect:/";
 	}
 
 }

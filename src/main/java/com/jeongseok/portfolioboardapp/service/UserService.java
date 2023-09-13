@@ -27,4 +27,9 @@ public class UserService {
 
 		return findUser.isEmpty();
 	}
+
+	public User login(String userId, String password) {
+		return userRepository.findByUserId(userId).filter(user -> user.getPassword().equals(password))
+			.orElse(null);
+	}
 }

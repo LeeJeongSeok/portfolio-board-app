@@ -40,4 +40,18 @@ public class UserFormDto {
 		}
 	}
 
+	@Getter
+	@Setter
+	@NoArgsConstructor
+	@AllArgsConstructor
+	@Builder
+	public static class UserLoginForm {
+
+		@NotBlank(message = "아이디는 빈칸으로 입력될 수 없습니다.")
+		private String userId;
+
+		@Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,16}", message = "비밀번호는 영문 대 소문자, 숫자, 특수문자를 사용해주세요.")
+		private String password;
+	}
+
 }
