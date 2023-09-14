@@ -5,6 +5,9 @@ import com.jeongseok.portfolioboardapp.dto.user.UserFormDto;
 import com.jeongseok.portfolioboardapp.dto.user.UserFormDto.UserJoinForm;
 import com.jeongseok.portfolioboardapp.dto.user.UserFormDto.UserLoginForm;
 import com.jeongseok.portfolioboardapp.service.UserService;
+import com.jeongseok.portfolioboardapp.util.SessionConst;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -51,7 +54,7 @@ public class UserController {
 	}
 
 	@PostMapping("/login")
-	public String login(@Valid @ModelAttribute UserFormDto.UserLoginForm userLoginForm, BindingResult bindingResult) {
+	public String login(@Valid @ModelAttribute UserFormDto.UserLoginForm userLoginForm, BindingResult bindingResult, HttpServletRequest request) {
 
 		if (bindingResult.hasErrors()) {
 			return "user/loginForm";
@@ -64,6 +67,11 @@ public class UserController {
 			bindingResult.reject("login Failed",  "아이디 또는 비밀번호가 일치하지 않습니다.");
 			return "user/loginForm";
 		}
+
+		// 세션이 있으면 있는 세션 반환, 없으면 신규 세션 생성
+		HttpSession session = request.getSession();
+		// 세션에 로그인 회원 정보 보관
+		session.setAttribute(SessionConst.LOGIN_MEMBER, loginUser);
 
 		return "redirect:/";
 	}
