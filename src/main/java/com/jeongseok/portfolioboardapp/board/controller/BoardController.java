@@ -1,5 +1,6 @@
 package com.jeongseok.portfolioboardapp.board.controller;
 
+import com.jeongseok.portfolioboardapp.board.dto.BoardDetailResponseDto;
 import com.jeongseok.portfolioboardapp.board.dto.BoardListResponseDto;
 import com.jeongseok.portfolioboardapp.board.dto.BoardWriteForm;
 import com.jeongseok.portfolioboardapp.board.service.BoardService;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -41,6 +43,20 @@ public class BoardController {
 	public String writeBoardForm(Model model) {
 		model.addAttribute("boardWriteForm", new BoardWriteForm());
 		return "board/writeBoardForm";
+	}
+
+	@GetMapping("/board/{boardIndex}")
+	public String boardDetail(@PathVariable long boardIndex, Model model) {
+
+		BoardDetailResponseDto board = boardService.getBoard(boardIndex);
+
+		if (board == null) {
+			System.out.println("게시글을 찾을 수 없습니다.");
+		}
+
+		model.addAttribute("board", board);
+
+		return "board/boardDetailForm";
 	}
 
 	@PostMapping("/board")
