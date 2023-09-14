@@ -1,6 +1,7 @@
 package com.jeongseok.portfolioboardapp.board.service;
 
 import com.jeongseok.portfolioboardapp.board.dto.BoardListResponseDto;
+import com.jeongseok.portfolioboardapp.board.dto.BoardWriteForm;
 import com.jeongseok.portfolioboardapp.board.repository.BoardRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,5 +19,9 @@ public class BoardService {
 		return boardRepository.findAll().stream()
 			.map(BoardListResponseDto::fromEntity)
 			.collect(Collectors.toList());
+	}
+
+	public void writeBoard(BoardWriteForm boardWriteForm) {
+		boardRepository.save(boardWriteForm.toEntity());
 	}
 }

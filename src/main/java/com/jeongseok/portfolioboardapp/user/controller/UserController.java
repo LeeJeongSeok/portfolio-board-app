@@ -40,7 +40,7 @@ public class UserController {
 	public String join(@Valid @ModelAttribute UserFormDto.UserJoinForm userJoinForm, BindingResult bindingResult) {
 
 		// 이미 존재하는 회원 검사
-		if (userService.isDuplicate(userJoinForm.getUserId())) {
+		if (!userService.isDuplicate(userJoinForm.getUserId())) {
 			bindingResult.addError(new FieldError("userJoinForm", "userId", "이미 존재하는 회원입니다."));
 		}
 
