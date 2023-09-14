@@ -63,10 +63,16 @@
 			<div class="mb-3">
 				<label for="exampleFormControlInput1" class="form-label" th:text="제목">제목</label>
 				<input type="text" class="form-control" name="title" th:field="*{title}" id="exampleFormControlInput1">
+				<div class="field-error" th:errors="*{title}">
+					제목 오류
+				</div>
 			</div>
 			<div class="mb-3">
 				<label for="exampleFormControlTextarea1" class="form-label" th:text="내용">내용</label>
 				<textarea class="form-control" name="content" th:field="*{content}" id="exampleFormControlTextarea1" rows="5"></textarea>
+				<div class="field-error" th:errors="*{content}">
+					내용 오류
+				</div>
 			</div>
 			
 			<div align="right">
