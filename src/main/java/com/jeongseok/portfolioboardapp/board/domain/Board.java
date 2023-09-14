@@ -37,4 +37,9 @@ public class Board extends BaseTimeEntity {
 	@Column(name = "use_yn")
 	private String useYn;
 
+	public void update(String title, String content) {
+		this.title = title;
+		this.content = content;
+
+	}
 }

@@ -10,13 +10,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BoardDetailResponseDto {
+public class BoardEditForm {
 
 	private long boardIndex;
 	private String title;
 	private String content;
-	private String name;
-	private String createdAt;
 
 	/**
 	 * Entity -> DTO
@@ -26,9 +24,6 @@ public class BoardDetailResponseDto {
 			.boardIndex(board.getBoardIndex())
 			.title(board.getTitle())
 			.content(board.getContent())
-			.name(board.getName())
-			.createdAt(String.valueOf(board.getCreatedAt()))
 			.build();
 	}
-
 }

@@ -2,6 +2,7 @@ package com.jeongseok.portfolioboardapp.board.service;
 
 import com.jeongseok.portfolioboardapp.board.domain.Board;
 import com.jeongseok.portfolioboardapp.board.dto.BoardDetailResponseDto;
+import com.jeongseok.portfolioboardapp.board.dto.BoardEditForm;
 import com.jeongseok.portfolioboardapp.board.dto.BoardListResponseDto;
 import com.jeongseok.portfolioboardapp.board.dto.BoardWriteForm;
 import com.jeongseok.portfolioboardapp.board.repository.BoardRepository;
@@ -32,5 +33,19 @@ public class BoardService {
 		Optional<Board> board = boardRepository.findById(boardIndex);
 
 		return board.map(BoardDetailResponseDto::fromEntity).orElse(null);
+	}
+
+	public void deleteBoard(long boardIndex) {
+		Board board = boardRepository.findById(boardIndex).orElse(null);
+		boardRepository.delete(board);
+	}
+
+	public void editBoard(long boardIndex, BoardEditForm boardEditForm) {
+
+		Board board = boardRepository.findById(boardIndex).orElse(null);
+
+		board.update(boardEditForm.getTitle(), boardEditForm.getContent());
+
+		boardRepository.save(board);
 	}
 }
