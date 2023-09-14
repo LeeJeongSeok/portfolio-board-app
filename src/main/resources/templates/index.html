@@ -4,6 +4,13 @@
 	<meta charset="UTF-8">
 	<link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
+<style>
+	.layout {
+		width: 1000px;
+		margin: 0 auto;
+		margin-top: 40px;
+	}
+</style>
 <body>
 	<!--네비게이션 바 위치-->
 	<nav class="navbar navbar-expand-lg bg-light" xmlns:th="http://www.thymeleaf.org" th:fragment="naviFragemnt">
@@ -40,5 +47,42 @@
 			</div>
 		</div>
 	</nav>
+	
+	<div class="layout">
+		<h2 align="center">게시판 리스트</h2>
+		
+		<div style="width: 300px" class="input-group mx-auto mb-3">
+			<form class="row gx-2" th:action="@{/board/search}" method="get">
+				<div class="col-auto">
+					<input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" name="keyword" />
+				</div>
+				<div class="col-auto">
+					<button type="submit" class="btn btn-outline-primary">search</button>
+				</div>
+			</form>
+		</div>
+		
+		<table class="table">
+			<thead class="table-light">
+			<tr>
+				<th>No</th>
+				<th width="60%">제목</th>
+				<th>작성자</th>
+				<th>작성 일시</th>
+			</tr>
+			</thead>
+			<tbody align="center">
+			<tr th:each="board : ${boardList}">
+				<td class="text-start" ><a th:href="@{/board/{boardIndex}(boardIndex=${board.getBoardIndex()})}" th:text="${board.getBoardIndex()}"></a></td>
+				<td class="text-start" th:text="${board.getTitle()}"></td>
+				<td class="text-start" th:text="${board.getName()}"></td>
+				<td class="text-start" th:text="${board.getCreatedAt()}"></td>
+			</tr>
+			</tbody>
+		</table>
+		<div align="right">
+			<button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/board/write}'|">글 쓰기</button>
+		</div>
+	</div>
 </body>
 </html>
