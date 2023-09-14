@@ -1,6 +1,6 @@
-package com.jeongseok.portfolioboardapp.dto.user;
+package com.jeongseok.portfolioboardapp.user.dto.user;
 
-import com.jeongseok.portfolioboardapp.domain.User;
+import com.jeongseok.portfolioboardapp.user.domain.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;

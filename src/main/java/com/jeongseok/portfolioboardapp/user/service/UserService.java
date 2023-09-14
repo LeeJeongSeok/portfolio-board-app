@@ -1,8 +1,8 @@
-package com.jeongseok.portfolioboardapp.service;
+package com.jeongseok.portfolioboardapp.user.service;
 
-import com.jeongseok.portfolioboardapp.domain.User;
-import com.jeongseok.portfolioboardapp.dto.user.UserFormDto.UserJoinForm;
-import com.jeongseok.portfolioboardapp.repository.UserRepository;
+import com.jeongseok.portfolioboardapp.user.domain.User;
+import com.jeongseok.portfolioboardapp.user.dto.user.UserFormDto.UserJoinForm;
+import com.jeongseok.portfolioboardapp.user.repository.UserRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

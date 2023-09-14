@@ -1,10 +1,10 @@
-package com.jeongseok.portfolioboardapp.controller;
+package com.jeongseok.portfolioboardapp.user.controller;
 
-import com.jeongseok.portfolioboardapp.domain.User;
-import com.jeongseok.portfolioboardapp.dto.user.UserFormDto;
-import com.jeongseok.portfolioboardapp.dto.user.UserFormDto.UserJoinForm;
-import com.jeongseok.portfolioboardapp.dto.user.UserFormDto.UserLoginForm;
-import com.jeongseok.portfolioboardapp.service.UserService;
+import com.jeongseok.portfolioboardapp.user.domain.User;
+import com.jeongseok.portfolioboardapp.user.dto.user.UserFormDto;
+import com.jeongseok.portfolioboardapp.user.dto.user.UserFormDto.UserJoinForm;
+import com.jeongseok.portfolioboardapp.user.dto.user.UserFormDto.UserLoginForm;
+import com.jeongseok.portfolioboardapp.user.service.UserService;
 import com.jeongseok.portfolioboardapp.util.SessionConst;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

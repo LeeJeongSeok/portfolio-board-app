@@ -1,6 +1,6 @@
 package com.jeongseok.portfolioboardapp.controller;
 
-import com.jeongseok.portfolioboardapp.dto.user.UserFormDto.UserJoinForm;
+import com.jeongseok.portfolioboardapp.user.dto.user.UserFormDto.UserJoinForm;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;

@@ -1,6 +1,6 @@
 package com.jeongseok.portfolioboardapp;
 
-import com.jeongseok.portfolioboardapp.domain.User;
+import com.jeongseok.portfolioboardapp.user.domain.User;
 import com.jeongseok.portfolioboardapp.util.SessionConst;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
