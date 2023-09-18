@@ -13,6 +13,11 @@ spring:
       hibernate:
         format_sql: true
 
+  mvc:
+    hidden-method:
+      filter:
+        enabled: true
+
 # jsessionid 노출 X
 server:
   servlet:
