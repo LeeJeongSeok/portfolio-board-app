@@ -53,7 +53,7 @@
 	
 	<h4 class="mb-3">게시글 수정</h4>
 	
-	<form th:action th:object="${board}" th:method="patch">
+	<form th:action="@{/board/{boardIndex}/edit(boardIndex=${board.getBoardIndex()})}" th:object="${board}" th:method="patch">
 		<div class="mb-3">
 			<label for="exampleFormControlInput1" class="form-label" th:text="제목">제목</label>
 			<input type="text" class="form-control" id="exampleFormControlInput1" name="title" th:field="*{title}" th:value="${board.title}">

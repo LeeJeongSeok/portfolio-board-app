@@ -40,11 +40,11 @@ public class BoardService {
 		boardRepository.delete(board);
 	}
 
-	public void editBoard(long boardIndex, BoardEditForm boardEditForm) {
+	public void editBoard(long boardIndex, BoardEditForm boardWriteForm) {
 
 		Board board = boardRepository.findById(boardIndex).orElse(null);
 
-		board.update(boardEditForm.getTitle(), boardEditForm.getContent());
+		board.update(boardWriteForm.getTitle(), boardWriteForm.getContent());
 
 		boardRepository.save(board);
 	}

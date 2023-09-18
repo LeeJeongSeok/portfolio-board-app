@@ -71,12 +71,14 @@ public class BoardController {
 			System.out.println("게시글을 찾을 수 없습니다.");
 		}
 
+		model.addAttribute("board", board);
+
 
 		return "board/boardEditForm";
 	}
 
 	@PatchMapping("/board/{boardIndex}/edit")
-	public String boardEdit(@PathVariable long boardIndex, @Valid @ModelAttribute BoardEditForm boardEditForm, BindingResult bindingResult) {
+	public String boardEdit(@PathVariable long boardIndex, @Valid @ModelAttribute("board") BoardEditForm boardEditForm, BindingResult bindingResult) {
 
 		BoardDetailResponseDto board = boardService.getBoard(boardIndex);
 
