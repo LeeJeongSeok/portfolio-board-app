@@ -45,7 +45,7 @@ public class BoardController {
 	@GetMapping("/board")
 	public String writeBoardForm(Model model) {
 		model.addAttribute("boardWriteForm", new BoardWriteForm());
-		return "board/writeBoardForm";
+		return "board/boardWriteForm";
 	}
 
 	@GetMapping("/board/{boardIndex}")
@@ -93,7 +93,7 @@ public class BoardController {
 	public String writeBoard(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) User loginMember, @Valid @ModelAttribute BoardWriteForm boardWriteForm, BindingResult bindingResult) {
 
 		if (bindingResult.hasErrors()) {
-			return "board/writeBoardForm";
+			return "board/boardWriteForm";
 		}
 
 		boardWriteForm.setName(loginMember.getUserName());
