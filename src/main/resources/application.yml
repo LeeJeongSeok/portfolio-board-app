@@ -12,3 +12,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+# jsessionid 노출 X
+server:
+  servlet:
+    session:
+      tracking-modes=cookie
