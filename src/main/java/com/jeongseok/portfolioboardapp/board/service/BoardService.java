@@ -43,18 +43,30 @@ public class BoardService {
 		return BoardDetailResponseDto.fromEntity(board);
 	}
 
+	@Transactional
 	public void deleteBoard(long boardIndex, String userId) {
-		Board board = boardRepository.findById(boardIndex).orElse(null);
+
+		Board board = boardRepository.findById(boardIndex)
+			.orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+
+		if (!board.getUserId().equals(userId)) {
+			throw new IllegalArgumentException("로그인한 유저와 작성한 유저 정보가 다릅니다.");
+		}
 
 		board.delete("N");
 	}
 
-	public void editBoard(long boardIndex, BoardEditForm boardWriteForm) {
+	@Transactional
+	public void editBoard(long boardIndex, String userId, BoardEditForm boardWriteForm) {
 
-		Board board = boardRepository.findById(boardIndex).orElse(null);
+		Board board = boardRepository.findById(boardIndex)
+			.orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
+
+		if (!board.getUserId().equals(userId)) {
+			throw new IllegalArgumentException("로그인한 유저와 작성한 유저 정보가 다릅니다.");
+		}
 
 		board.update(boardWriteForm.getTitle(), boardWriteForm.getContent());
 
-//		boardRepository.save(board);
 	}
 }

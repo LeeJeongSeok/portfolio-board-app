@@ -95,7 +95,7 @@ public class BoardController {
 	}
 
 	@PatchMapping("/board/{boardIndex}/edit")
-	public String boardEdit(@PathVariable long boardIndex, @Valid @ModelAttribute("board") BoardEditForm boardEditForm, BindingResult bindingResult) {
+	public String boardEdit(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) User loginMember, @PathVariable long boardIndex, @Valid @ModelAttribute("board") BoardEditForm boardEditForm, BindingResult bindingResult) {
 
 		BoardDetailResponseDto board = boardService.getBoard(boardIndex);
 
@@ -103,7 +103,7 @@ public class BoardController {
 			System.out.println("게시글을 찾을 수 없습니다.");
 		}
 
-		boardService.editBoard(boardIndex, boardEditForm);
+		boardService.editBoard(boardIndex, loginMember.getUserId(), boardEditForm);
 
 		return "redirect:/board/{boardIndex}";
 	}
