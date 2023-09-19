@@ -6,6 +6,7 @@ import com.jeongseok.portfolioboardapp.board.dto.BoardEditForm;
 import com.jeongseok.portfolioboardapp.board.dto.BoardListResponseDto;
 import com.jeongseok.portfolioboardapp.board.dto.BoardWriteForm;
 import com.jeongseok.portfolioboardapp.board.repository.BoardRepository;
+import com.jeongseok.portfolioboardapp.type.UseType;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class BoardService {
 			.title(boardWriteForm.getTitle())
 			.content(boardWriteForm.getContent())
 			.userId(userId)
-			.useYn("Y")
+			.useYn(UseType.Y)
 			.build());
 	}
 
@@ -53,7 +54,7 @@ public class BoardService {
 			throw new IllegalArgumentException("로그인한 유저와 작성한 유저 정보가 다릅니다.");
 		}
 
-		board.delete("N");
+		board.delete(UseType.N);
 	}
 
 	@Transactional

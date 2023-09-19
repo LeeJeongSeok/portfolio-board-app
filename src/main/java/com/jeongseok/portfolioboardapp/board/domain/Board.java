@@ -1,8 +1,11 @@
 package com.jeongseok.portfolioboardapp.board.domain;
 
+import com.jeongseok.portfolioboardapp.type.UseType;
 import com.jeongseok.portfolioboardapp.user.domain.BaseTimeEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,8 +37,9 @@ public class Board extends BaseTimeEntity {
 	@Column(name = "user_id")
 	private String userId;
 
+	@Enumerated(EnumType.STRING)
 	@Column(name = "use_yn")
-	private String useYn;
+	private UseType useYn;
 
 	public void update(String title, String content) {
 		this.title = title;
@@ -43,7 +47,7 @@ public class Board extends BaseTimeEntity {
 
 	}
 
-	public void delete(String useYn) {
+	public void delete(UseType useYn) {
 		this.useYn = useYn;
 	}
 }
