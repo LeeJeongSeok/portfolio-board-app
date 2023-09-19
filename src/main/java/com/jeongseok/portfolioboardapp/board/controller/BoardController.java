@@ -9,7 +9,12 @@ import com.jeongseok.portfolioboardapp.user.domain.User;
 import com.jeongseok.portfolioboardapp.util.SessionConst;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
@@ -28,14 +34,26 @@ public class BoardController {
 	private final BoardService boardService;
 
 	@GetMapping("/")
-	public String index(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) User loginMember, Model model) {
+	public String index(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) User loginMember, @RequestParam("page") Optional<Integer> page, @RequestParam("size") Optional<Integer> size, Model model) {
 
-		List<BoardListResponseDto> boardList = boardService.getBoardList();
+		int currentPage = page.orElse(1);
+		int pageSize = size.orElse(10);
+
+		Page<BoardListResponseDto> boardList = boardService.findPaginated(PageRequest.of(currentPage - 1, pageSize));
+
 		model.addAttribute("boardList", boardList);
 
 		// 상태바 메뉴 구분을 위한 로그인 확인 유무 로직
 		if (loginMember == null) {
 			return "index";
+		}
+
+		int totalPages = boardList.getTotalPages();
+		if (totalPages > 0) {
+			List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+				.boxed()
+				.collect(Collectors.toList());
+			model.addAttribute("pageNumbers", pageNumbers);
 		}
 
 		model.addAttribute("user", loginMember);

@@ -83,6 +83,48 @@
 		<div align="right">
 			<button type="button" class="btn btn-secondary" th:onclick="|location.href='@{/board}'|">글 쓰기</button>
 		</div>
+		
+		<nav aria-label="Page navigation">
+			<!--표에 사용될 변수값 초기화 -->
+			<ul class="pagination justify-content-center" th:with="start=${T(java.lang.Math).floor(boardList.number / 10) * 10 + 1}, last=(${start + 9 < boardList.totalPages ? start + 9 : boardList.totalPages})">
+				<th:block th:with="
+                firstAddr=@{/(page=1)},
+                prevAddr=@{/(page=${boardList.number})},
+                nextAddr=@{/(page=${boardList.number + 2})},
+                lastAddr=@{/(page=${boardList.totalPages})}">
+					<li class="page-item">
+						<a class="page-link" th:href="${firstAddr}" aria-label="First">
+							<span aria-hidden="true"> << </span>
+						</a>
+					</li>
+					<!-- 이전 페이지로 가기 버튼 -->
+					<li class="page-item" th:class="${boardList.first} ? 'disabled'">
+						<a class="page-link" th:href="${boardList.first} ? '#' :${prevAddr}"
+						   aria-label="Previous">
+							<span aria-hidden="true">&lt;</span>
+						</a>
+					</li>
+					<!--1,2,3,4,.. 등 페이지-->
+					<li class="page-item" th:each="page: ${#numbers.sequence(start, last)}"
+					    th:class="${page == boardList.number + 1} ? 'active'">
+						<a class="page-link" th:text="${page}" th:href="@{/(page=${page})}"></a>
+					</li>
+					<!--다음 페이지로 -->
+					<li class="page-item" th:class="${boardList.last} ? 'disabled'">
+						<a class="page-link" th:href="${boardList.last} ? '#' : ${nextAddr}"
+						   aria-label="Next">
+							<span aria-hidden="true">&gt;</span>
+						</a>
+					</li>
+					<!--맨 마지막 페이지로 이동 -->
+					<li class="page-item">
+						<a class="page-link" th:href="${lastAddr}" aria-label="Last">
+							<span aria-hidden="true"> >> </span>
+						</a>
+					</li>
+				</th:block>
+			</ul>
+		</nav>
 	</div>
 </body>
 </html>
