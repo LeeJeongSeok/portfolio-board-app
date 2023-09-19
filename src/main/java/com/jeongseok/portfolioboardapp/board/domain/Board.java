@@ -31,8 +31,8 @@ public class Board extends BaseTimeEntity {
 	@Column(name = "content")
 	private String content;
 
-	@Column(name = "name")
-	private String name;
+	@Column(name = "user_id")
+	private String userId;
 
 	@Column(name = "use_yn")
 	private String useYn;
@@ -41,5 +41,9 @@ public class Board extends BaseTimeEntity {
 		this.title = title;
 		this.content = content;
 
+	}
+
+	public void delete(String useYn) {
+		this.useYn = useYn;
 	}
 }

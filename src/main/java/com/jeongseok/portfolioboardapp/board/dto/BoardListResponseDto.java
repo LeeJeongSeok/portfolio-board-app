@@ -21,7 +21,7 @@ public class BoardListResponseDto {
 		return BoardListResponseDto.builder()
 			.boardIndex(board.getBoardIndex())
 			.title(board.getTitle())
-			.name(board.getName())
+			.name(board.getUserId())
 			.createdAt(String.valueOf(board.getCreatedAt()))
 			.build();
 	}

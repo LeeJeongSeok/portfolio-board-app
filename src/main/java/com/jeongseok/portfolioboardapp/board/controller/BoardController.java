@@ -33,6 +33,7 @@ public class BoardController {
 		List<BoardListResponseDto> boardList = boardService.getBoardList();
 		model.addAttribute("boardList", boardList);
 
+		// 상태바 메뉴 구분을 위한 로그인 확인 유무 로직
 		if (loginMember == null) {
 			return "index";
 		}
@@ -46,6 +47,22 @@ public class BoardController {
 	public String writeBoardForm(Model model) {
 		model.addAttribute("boardWriteForm", new BoardWriteForm());
 		return "board/boardWriteForm";
+	}
+
+	@PostMapping("/board")
+	public String writeBoard(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) User loginMember, @Valid @ModelAttribute BoardWriteForm boardWriteForm, BindingResult bindingResult) {
+
+		if (bindingResult.hasErrors()) {
+			return "board/boardWriteForm";
+		}
+
+		if (loginMember == null) {
+			return "redirect:/login";
+		}
+
+		boardService.writeBoard(boardWriteForm, loginMember.getUserId());
+
+		return "redirect:/";
 	}
 
 	@GetMapping("/board/{boardIndex}")
@@ -91,18 +108,7 @@ public class BoardController {
 		return "redirect:/board/{boardIndex}";
 	}
 
-	@PostMapping("/board")
-	public String writeBoard(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) User loginMember, @Valid @ModelAttribute BoardWriteForm boardWriteForm, BindingResult bindingResult) {
 
-		if (bindingResult.hasErrors()) {
-			return "board/boardWriteForm";
-		}
-
-		boardWriteForm.setName(loginMember.getUserName());
-		boardService.writeBoard(boardWriteForm);
-
-		return "redirect:/";
-	}
 
 	@DeleteMapping("/board/{boardIndex}")
 	public String deleteBoard(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) User loginMember, @PathVariable long boardIndex) {
@@ -111,7 +117,7 @@ public class BoardController {
 			System.out.println("게시글을 삭제할 수 없습니다.");
 		}
 
-		boardService.deleteBoard(boardIndex);
+		boardService.deleteBoard(boardIndex, loginMember.getUserId());
 
 		return "redirect:/";
 	}

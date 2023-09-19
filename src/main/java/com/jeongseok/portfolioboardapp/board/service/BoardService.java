@@ -11,6 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,13 +21,20 @@ public class BoardService {
 
 
 	public List<BoardListResponseDto> getBoardList() {
-		return boardRepository.findAll().stream()
+		return boardRepository.findAllByUseYnOrderByCreatedAtDesc("Y").stream()
 			.map(BoardListResponseDto::fromEntity)
 			.collect(Collectors.toList());
 	}
 
-	public void writeBoard(BoardWriteForm boardWriteForm) {
-		boardRepository.save(boardWriteForm.toEntity());
+	@Transactional
+	public void writeBoard(BoardWriteForm boardWriteForm, String userId) {
+
+		boardRepository.save(Board.builder()
+			.title(boardWriteForm.getTitle())
+			.content(boardWriteForm.getContent())
+			.userId(userId)
+			.useYn("Y")
+			.build());
 	}
 
 	public BoardDetailResponseDto getBoard(long boardIndex) {
@@ -35,9 +43,10 @@ public class BoardService {
 		return board.map(BoardDetailResponseDto::fromEntity).orElse(null);
 	}
 
-	public void deleteBoard(long boardIndex) {
+	public void deleteBoard(long boardIndex, String userId) {
 		Board board = boardRepository.findById(boardIndex).orElse(null);
-		boardRepository.delete(board);
+
+		board.delete("N");
 	}
 
 	public void editBoard(long boardIndex, BoardEditForm boardWriteForm) {
@@ -46,6 +55,6 @@ public class BoardService {
 
 		board.update(boardWriteForm.getTitle(), boardWriteForm.getContent());
 
-		boardRepository.save(board);
+//		boardRepository.save(board);
 	}
 }

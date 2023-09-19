@@ -1,6 +1,5 @@
 package com.jeongseok.portfolioboardapp.board.dto;
 
-import com.jeongseok.portfolioboardapp.board.domain.Board;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,15 +22,4 @@ public class BoardWriteForm {
 
 	private String name;
 
-	/**
-	 * DTO -> Entity
-	 */
-
-	public Board toEntity() {
-		return Board.builder()
-			.title(title)
-			.content(content)
-			.name(name)
-			.build();
-	}
 }

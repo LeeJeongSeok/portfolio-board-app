@@ -26,7 +26,7 @@ public class BoardDetailResponseDto {
 			.boardIndex(board.getBoardIndex())
 			.title(board.getTitle())
 			.content(board.getContent())
-			.name(board.getName())
+			.name(board.getUserId())
 			.createdAt(String.valueOf(board.getCreatedAt()))
 			.build();
 	}
