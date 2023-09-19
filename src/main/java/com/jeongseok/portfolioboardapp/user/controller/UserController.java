@@ -30,12 +30,6 @@ public class UserController {
 		return "user/joinForm";
 	}
 
-	@GetMapping("/login")
-	public String loginForm(Model model) {
-		model.addAttribute("userLoginForm", new UserLoginForm());
-		return "user/loginForm";
-	}
-
 	@PostMapping("/join")
 	public String join(@Valid @ModelAttribute UserFormDto.UserJoinForm userJoinForm, BindingResult bindingResult) {
 
@@ -50,7 +44,13 @@ public class UserController {
 
 		userService.join(userJoinForm);
 
-		return "redirect:/join";
+		return "redirect:/login";
+	}
+
+	@GetMapping("/login")
+	public String loginForm(Model model) {
+		model.addAttribute("userLoginForm", new UserLoginForm());
+		return "user/loginForm";
 	}
 
 	@PostMapping("/login")
