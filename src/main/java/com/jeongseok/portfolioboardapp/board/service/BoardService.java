@@ -7,7 +7,6 @@ import com.jeongseok.portfolioboardapp.board.dto.BoardListResponseDto;
 import com.jeongseok.portfolioboardapp.board.dto.BoardWriteForm;
 import com.jeongseok.portfolioboardapp.board.repository.BoardRepository;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -38,9 +37,10 @@ public class BoardService {
 	}
 
 	public BoardDetailResponseDto getBoard(long boardIndex) {
-		Optional<Board> board = boardRepository.findById(boardIndex);
+		Board board = boardRepository.findById(boardIndex)
+			.orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
-		return board.map(BoardDetailResponseDto::fromEntity).orElse(null);
+		return BoardDetailResponseDto.fromEntity(board);
 	}
 
 	public void deleteBoard(long boardIndex, String userId) {
