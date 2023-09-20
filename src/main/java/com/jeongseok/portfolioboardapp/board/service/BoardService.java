@@ -37,7 +37,7 @@ public class BoardService {
 		boardRepository.save(Board.builder()
 			.title(boardWriteForm.getTitle())
 			.content(boardWriteForm.getContent())
-			.userId(userId)
+//			.userId(userId)
 			.useYn(UseType.Y)
 			.build());
 	}
@@ -55,7 +55,7 @@ public class BoardService {
 		Board board = boardRepository.findById(boardIndex)
 			.orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
-		if (!board.getUserId().equals(userId)) {
+		if (!board.getUser().getUserId().equals(userId)) {
 			throw new IllegalArgumentException("로그인한 유저와 작성한 유저 정보가 다릅니다.");
 		}
 
@@ -68,7 +68,7 @@ public class BoardService {
 		Board board = boardRepository.findById(boardIndex)
 			.orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
-		if (!board.getUserId().equals(userId)) {
+		if (!board.getUser().getUserId().equals(userId)) {
 			throw new IllegalArgumentException("로그인한 유저와 작성한 유저 정보가 다릅니다.");
 		}
 
@@ -82,12 +82,12 @@ public class BoardService {
 		int currentPage = pageable.getPageNumber();
 		int startItem = currentPage * pageSize;
 
-		List<BoardListResponseDto> boardPageList;
-
 		List<BoardListResponseDto> boardList = boardRepository.findAllByUseYnOrderByCreatedAtDesc(UseType.Y).stream()
 			.map(BoardListResponseDto::fromEntity)
 			.collect(Collectors.toList());
 
+
+		List<BoardListResponseDto> boardPageList;
 
 		if (boardList.size() < startItem) {
 			boardPageList = Collections.emptyList();

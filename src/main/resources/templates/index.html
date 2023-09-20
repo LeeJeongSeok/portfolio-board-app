@@ -75,7 +75,7 @@
 			<tr th:each="board : ${boardList}">
 				<td class="text-start" ><a th:href="@{/board/{boardIndex}(boardIndex=${board.getBoardIndex()})}" th:text="${board.getBoardIndex()}"></a></td>
 				<td class="text-start" th:text="${board.getTitle()}"></td>
-				<td class="text-start" th:text="${board.getName()}"></td>
+				<td class="text-start" th:text="${board.getUser().getUserId()}"></td>
 				<td class="text-start" th:text="${board.getCreatedAt()}"></td>
 			</tr>
 			</tbody>

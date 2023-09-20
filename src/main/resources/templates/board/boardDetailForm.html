@@ -78,11 +78,8 @@
 		
 		<div align="right">
 			<a class="btn btn-primary" th:href="@{/}" th:text="목록으로">목록으로</a>
-<!--			<a class="btn btn-success" th:href="@{/board/write/comment(boardIndex=${board.getBoardIndex()})}" th:text="답글 등록하기">답글 등록하기</a>-->
+			<a class="btn btn-success" th:href="@{/board/{boardIndex}/comment(boardIndex=${board.getBoardIndex()})}" th:text="답글달기">답글달기</a>
 			<a class="btn btn-info" th:href="@{/board/{boardIndex}/edit(boardIndex=${board.getBoardIndex()})}" th:text="수정하기">수정하기</a>
-<!--			<form style="display:inline;" th:action="@{/board/{boardIndex}(boardIndex=${board.getBoardIndex()})}" th:method="patch">-->
-<!--				<button type="submit" class="btn btn-info" th:text="게시글 수정하기">게시글 수정하기</button>-->
-<!--			</form>-->
 			<form style="display:inline;" th:action="@{/board/{boardIndex}(boardIndex=${board.getBoardIndex()})}" th:method="delete">
 				<button type="submit" class="btn btn-danger" th:text="삭제">삭제</button>
 			</form>
