@@ -46,7 +46,7 @@ public class Board extends BaseTimeEntity {
 	private String content;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", referencedColumnName = "user_id") // PK가 아닌 컬럼과 연관관계를 매핑할 때 referencedColumnName 속성을 사용
+	@JoinColumn(name = "user_id") // PK가 아닌 컬럼과 연관관계를 매핑할 때 referencedColumnName 속성을 사용
 	private User user;
 
 	@Enumerated(EnumType.STRING)
