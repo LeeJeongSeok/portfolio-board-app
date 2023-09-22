@@ -7,6 +7,7 @@ import com.jeongseok.portfolioboardapp.board.dto.BoardListResponseDto;
 import com.jeongseok.portfolioboardapp.board.dto.BoardWriteForm;
 import com.jeongseok.portfolioboardapp.board.repository.BoardRepository;
 import com.jeongseok.portfolioboardapp.type.UseType;
+import com.jeongseok.portfolioboardapp.user.domain.User;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,12 +33,12 @@ public class BoardService {
 	}
 
 	@Transactional
-	public void writeBoard(BoardWriteForm boardWriteForm, String userId) {
+	public void writeBoard(BoardWriteForm boardWriteForm, User user) {
 
 		boardRepository.save(Board.builder()
 			.title(boardWriteForm.getTitle())
 			.content(boardWriteForm.getContent())
-//			.userId(userId)
+			.user(user)
 			.useYn(UseType.Y)
 			.build());
 	}
@@ -50,12 +51,12 @@ public class BoardService {
 	}
 
 	@Transactional
-	public void deleteBoard(long boardIndex, String userId) {
+	public void deleteBoard(long boardIndex, String loginId) {
 
 		Board board = boardRepository.findById(boardIndex)
 			.orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
-		if (!board.getUser().getUserId().equals(userId)) {
+		if (!board.getUser().getUserId().equals(loginId)) {
 			throw new IllegalArgumentException("로그인한 유저와 작성한 유저 정보가 다릅니다.");
 		}
 
@@ -63,12 +64,12 @@ public class BoardService {
 	}
 
 	@Transactional
-	public void editBoard(long boardIndex, String userId, BoardEditForm boardWriteForm) {
+	public void editBoard(long boardIndex, String loginId, BoardEditForm boardWriteForm) {
 
 		Board board = boardRepository.findById(boardIndex)
 			.orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
 
-		if (!board.getUser().getUserId().equals(userId)) {
+		if (!board.getUser().getUserId().equals(loginId)) {
 			throw new IllegalArgumentException("로그인한 유저와 작성한 유저 정보가 다릅니다.");
 		}
 

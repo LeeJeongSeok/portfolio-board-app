@@ -78,7 +78,7 @@ public class BoardController {
 			return "redirect:/login";
 		}
 
-		boardService.writeBoard(boardWriteForm, loginMember.getUserId());
+		boardService.writeBoard(boardWriteForm, loginMember);
 
 		return "redirect:/";
 	}
