@@ -27,7 +27,7 @@ public class BoardService {
 
 
 	public List<BoardListResponseDto> getBoardList() {
-		return boardRepository.findAllByUseYnOrderByCreatedAtDesc(UseType.Y).stream()
+		return boardRepository.findAllByUseYnOrderByCreatedAtAsc(UseType.Y).stream()
 			.map(BoardListResponseDto::fromEntity)
 			.collect(Collectors.toList());
 	}
@@ -83,7 +83,7 @@ public class BoardService {
 		int currentPage = pageable.getPageNumber();
 		int startItem = currentPage * pageSize;
 
-		List<BoardListResponseDto> boardList = boardRepository.findAllByUseYnOrderByCreatedAtDesc(UseType.Y).stream()
+		List<BoardListResponseDto> boardList = boardRepository.findAllByUseYnOrderByCreatedAtAsc(UseType.Y).stream()
 			.map(BoardListResponseDto::fromEntity)
 			.collect(Collectors.toList());
 

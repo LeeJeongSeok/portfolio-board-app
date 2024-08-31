@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-	List<Board> findAllByUseYnOrderByCreatedAtDesc(UseType useYn);
+	List<Board> findAllByUseYnOrderByCreatedAtAsc(UseType useYn);
 
 
 	List<Board> findAll();
